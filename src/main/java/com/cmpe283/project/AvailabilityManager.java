@@ -15,8 +15,10 @@ import com.vmware.vim25.InvalidProperty;
 import com.vmware.vim25.InvalidState;
 import com.vmware.vim25.RuntimeFault;
 import com.vmware.vim25.TaskInProgress;
+import com.vmware.vim25.VirtualMachineMovePriority;
 import com.vmware.vim25.VirtualMachinePowerState;
 import com.vmware.vim25.VmConfigFault;
+import com.vmware.vim25.mo.ComputeResource;
 import com.vmware.vim25.mo.Datacenter;
 import com.vmware.vim25.mo.Folder;
 import com.vmware.vim25.mo.HostSystem;
@@ -49,6 +51,11 @@ public class AvailabilityManager {
 		//AvailabilityManager.checkruning(si);
 		//AvailabilityManager.run(si);
 		//ping(lanVM.getGuest().getIpAddress());
+		
+		
+		HostSystem[] hosts = AvailabilityManager.getHosts(si);
+		ComputeResource cr = (ComputeResource) hosts[1].getParent();
+		hosts[0].getVms()[0].migrateVM_Task(cr.getResourcePool(), hosts[1], VirtualMachineMovePriority.lowPriority, VirtualMachinePowerState.poweredOff);
 		
 		si.getServerConnection().logout();
 
