@@ -49,13 +49,13 @@ public class AvailabilityManager {
 
 		//HostSystem[] hosts = AvailabilityManager.getHosts(si);
 		//AvailabilityManager.checkruning(si);
-		//AvailabilityManager.run(si);
+		AvailabilityManager.run(si);
 		//ping(lanVM.getGuest().getIpAddress());
 		
 		
-		HostSystem[] hosts = AvailabilityManager.getHosts(si);
-		ComputeResource cr = (ComputeResource) hosts[1].getParent();
-		hosts[0].getVms()[0].migrateVM_Task(cr.getResourcePool(), hosts[1], VirtualMachineMovePriority.lowPriority, VirtualMachinePowerState.poweredOff);
+//		HostSystem[] hosts = AvailabilityManager.getHosts(si);
+//		ComputeResource cr = (ComputeResource) hosts[1].getParent();
+//		hosts[0].getVms()[0].migrateVM_Task(cr.getResourcePool(), hosts[1], VirtualMachineMovePriority.lowPriority, VirtualMachinePowerState.poweredOff);
 		
 		si.getServerConnection().logout();
 
@@ -113,11 +113,12 @@ public class AvailabilityManager {
 				}
 				System.out.println("---- OS is " + vm.getGuest().guestState
 						+ "-----");
-				if (!AvailabilityManager.hasIpAddress(vm)) {
+				if (AvailabilityManager.hasIpAddress(vm)) {
 					String ip = ipc.getIP();
 					vm.getGuest().setIpAddress(ip);
 					System.out.println("set ip " + ip + " for " + vm.getName());
-
+					System.out.println("Current ip of "+vm.getName()+" is " + vm.getGuest().getIpAddress() );
+					
 				}else{
 					System.out.println(vm.getName() + " has ip address already : " + vm.getGuest().getIpAddress());
 				}
@@ -135,6 +136,7 @@ public class AvailabilityManager {
 						+ MyPing.pingHost(vm.getGuest().getIpAddress()));
 				
 				System.out.println(vm.getName() + " is powering off!");
+				System.out.println();
 				vm.powerOffVM_Task();
 				i++;
 			}
