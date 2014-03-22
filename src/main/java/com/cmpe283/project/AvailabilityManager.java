@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import org.tempuri.Service;
 import org.tempuri.ServiceSoap;
 
+import com.cmpe283.project.impl.IPContainer;
 import com.vmware.vim25.ClusterConfigSpec;
 import com.vmware.vim25.ComputeResourceConfigSpec;
 import com.vmware.vim25.FileFault;
@@ -46,7 +47,6 @@ public class AvailabilityManager {
 		// TODO Auto-generated method stub
 		logger.log(Level.FINE, "logger test");
 
-		
 		
 		URL url = new URL(AvailabilityManager.URL);
 		ServiceInstance si = new ServiceInstance(url, AvailabilityManager.USERNAME, AvailabilityManager.PASSWORD, true);
