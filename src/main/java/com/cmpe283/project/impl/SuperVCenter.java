@@ -1,7 +1,5 @@
 package com.cmpe283.project.impl;
 
-public class ParametersManager {
-	
-	
+public class SuperVCenter {
 
 }
